@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis XV Valentina</title>
+    <!-- Tailwind CSS para los estilos base -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome para los iconos -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-purple: #2b124c;
+            --dark-purple: #1a0b2e;
+            --accent-gold: #ffd700;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, var(--dark-purple) 0%, var(--primary-purple) 50%, var(--dark-purple) 100%);
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .font-script {
+            font-family: 'Great Vibes', cursive;
+        }
+
+        .gold-text {
+            color: var(--accent-gold);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        /* Efecto de luz irradiando de fondo */
+        .radiating-light {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 150vw;
+            height: 150vh;
+            background: radial-gradient(circle, rgba(255,215,0,0.15) 0%, rgba(255,215,0,0) 60%);
+            animation: pulse-light 5s ease-in-out infinite alternate;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        @keyframes pulse-light {
+            0% { opacity: 0.5; transform: translate(-50%, -50%) scale(0.9); }
+            100% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+        }
+
+        /* Linternas flotantes */
+        .lantern {
+            position: fixed;
+            width: 12px;
+            height: 20px;
+            background: #ffdb58;
+            border-radius: 3px 3px 2px 2px;
+            box-shadow: 0 0 15px 5px rgba(255, 219, 88, 0.4), inset 0 -3px 8px #e69500;
+            animation: float-up linear infinite;
+            opacity: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        @keyframes float-up {
+            0% { transform: translateY(110vh) translateX(0) scale(0.8); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-10vh) translateX(30px) scale(1.2); opacity: 0; }
+        }
+
+        /* Contenedor principal con Glassmorphism */
+        .content-wrapper {
+            position: relative;
+            z-index: 10;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 1rem;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        /* Carrusel de fotos infinito (Marquee) */
+        .marquee-container {
+            width: 100%;
+            height: 160px; /* Altura máxima requerida */
+            overflow: hidden;
+            position: relative;
+            border-radius: 0.5rem;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            background: rgba(0,0,0,0.2);
+        }
+
+        .marquee-track {
+            display: flex;
+            width: max-content;
+            height: 100%;
+            animation: marquee 20s linear infinite;
+        }
+
+        .marquee-track:hover {
+            animation-play-state: paused;
+        }
+
+        .marquee-track img {
+            height: 160px;
+            width: auto;
+            object-fit: cover;
+            padding: 0 5px; /* Espacio entre fotos */
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); } /* Se mueve al 50% porque duplicaremos las imágenes */
+        }
+
+        /* Contenedor de Música Flotante */
+        #music-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .music-label {
+            background: rgba(26, 11, 46, 0.85);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            color: var(--accent-gold);
+            padding: 4px 14px;
+            border-radius: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+            animation: pulse-light 3s infinite alternate;
+        }
+
+        /* Botón de Música Flotante */
+        #music-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--accent-gold);
+            color: var(--primary-purple);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+            transition: transform 0.3s, background 0.3s;
+            animation: pulse-btn 2s infinite;
+        }
+
+        #music-btn:hover {
+            transform: scale(1.1);
+        }
+
+        @keyframes pulse-btn {
+            0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 215, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
+        }
+
+        /* Colores Prohibidos - Visual */
+        .color-circle {
+            position: relative;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: inline-block;
+            margin: 0 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            overflow: hidden;
+            border: 2px solid white;
+        }
+        
+        .circle-blue { background-color: #0000FF; }
+        .circle-gold { background-color: #FFD700; }
+
+        /* Línea de tachado (prohibición) */
+        .color-circle::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -10%;
+            width: 120%;
+            height: 4px;
+            background-color: red;
+            transform: translateY(-50%) rotate(-45deg);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-yellow-500 selection:text-purple-900">
+
+    <!-- Efectos de Fondo -->
+    <div class="radiating-light"></div>
+    <div id="lanterns-container"></div>
+
+    <!-- Audio Oculto -->
+    <audio id="bg-music" loop>
+        <!-- ¡AQUÍ VA LA CANCIÓN DE ENREDADOS! -->
+        <!-- Reemplaza el enlace de abajo por tu MP3 de "Veo en ti la luz" -->
+        <source src="https://www.youtube.com/iframe_api"></script>
+    </audio>
+
+    <!-- Botón Flotante de Música -->
+    <div id="music-container">
+        <span class="music-label font-script text-xl tracking-wider pt-1">🎵 Veo en ti la luz</span>
+        <button id="music-btn" onclick="toggleMusic()">
+            <i class="fas fa-play" id="music-icon"></i>
+        </button>
+    </div>
+
+    <!-- Contenido Principal -->
+    <div class="content-wrapper container mx-auto px-4 py-10 max-w-lg text-center">
+        
+        <!-- Cabecera -->
+        <header class="mb-10 animate-fade-in pt-4">
+            <h2 class="text-xl md:text-2xl tracking-[0.3em] font-light text-gray-300 mb-1 uppercase">Mis XV</h2>
+            <h1 class="text-7xl md:text-8xl font-script gold-text mb-6">Valentina</h1>
+            
+            <!-- Carrusel Infinito Chico -->
+            <div class="marquee-container mb-6 shadow-xl">
+                <div class="marquee-track" id="marquee-track">
+                    <!-- Se inyectarán las imágenes duplicadas por JS para el efecto infinito -->
+                </div>
+            </div>
+            
+            <p class="text-sm italic text-gray-300 max-w-xs mx-auto">
+                "Y por fin veo la luz, y la niebla se ha disipado..."
+            </p>
+        </header>
+
+        <!-- Sección Detalles -->
+        <section class="glass-card p-6 mb-8">
+            <h3 class="font-script text-4xl gold-text mb-6">Detalles</h3>
+            <div class="flex flex-col gap-6">
+                <div class="flex items-center justify-center gap-4">
+                    <i class="far fa-calendar-alt text-2xl text-[#ffd700] w-8"></i>
+                    <div class="text-left">
+                        <p class="text-sm text-gray-300">Fecha</p>
+                        <p class="text-lg font-bold">12 de Diciembre 2026</p>
+                    </div>
+                </div>
+                <div class="flex items-center justify-center gap-4">
+                    <i class="far fa-clock text-2xl text-[#ffd700] w-8"></i>
+                    <div class="text-left">
+                        <p class="text-sm text-gray-300">Horario</p>
+                        <p class="text-lg font-bold">21:00 hs a 05:00 hs</p>
+                    </div>
+                </div>
+                <div class="flex items-center justify-center gap-4">
+                    <i class="fas fa-map-marker-alt text-2xl text-[#ffd700] w-8"></i>
+                    <div class="text-left">
+                        <p class="text-sm text-gray-300">Lugar</p>
+                        <p class="text-lg font-bold">Salón María Teresa</p>
+                    </div>
+                </div>
+            </div>
+            
+            <button onclick="window.open('https://maps.google.com/?q=Salón+María+Teresa', '_blank')" 
+                    class="mt-8 inline-flex items-center px-6 py-3 border border-[#ffd700] text-[#ffd700] rounded-full hover:bg-[#ffd700] hover:text-[#2b124c] transition-all duration-300 font-semibold text-sm">
+                <i class="fas fa-map-pin mr-2"></i> Abrir en Google Maps
+            </button>
+        </section>
+
+        <!-- Sección Dress Code -->
+        <section class="glass-card p-6 mb-8">
+            <h3 class="font-script text-4xl gold-text mb-4">Dress Code</h3>
+            <i class="fas fa-tshirt text-3xl mb-3 text-[#ffd700]"></i>
+            <p class="text-lg font-semibold uppercase tracking-wider mb-4">Semi elegante</p>
+            <p class="text-sm mb-4 text-gray-300">Colores prohibidos:</p>
+            
+            <!-- Círculos de prohibición visual -->
+            <div class="flex justify-center mb-2">
+                <div class="color-circle circle-blue" title="Azul Prohibido"></div>
+                <div class="color-circle circle-gold" title="Dorado Prohibido"></div>
+            </div>
+            <p class="text-xs text-gray-400 mt-2">(Azul y Dorado)</p>
+        </section>
+
+        <!-- Sección Regalos -->
+        <section class="glass-card p-6 mb-8">
+            <h3 class="font-script text-4xl gold-text mb-4">Regalos</h3>
+            <i class="fas fa-gift text-3xl mb-4 text-[#ffd700]"></i>
+            <p class="text-sm mb-4 text-gray-300">El mejor regalo es tu presencia, pero si deseas hacerme un presente:</p>
+            
+            <div class="bg-black/30 rounded-xl p-4 mx-auto cursor-pointer hover:bg-black/50 transition border border-yellow-500/20 active:scale-95" onclick="copyAlias()">
+                <p class="text-xs text-gray-400 uppercase mb-1">Alias / CBU</p>
+                <p class="text-lg font-bold text-white tracking-wider" id="alias-text">luz.valen.diumenjo</p>
+                <div class="flex items-center justify-center gap-2 mt-2 text-[#ffd700]">
+                    <i class="far fa-copy text-sm"></i>
+                    <p class="text-xs font-semibold">Toca para copiar</p>
+                </div>
+            </div>
+            <p id="copy-msg" class="text-green-400 text-sm mt-2 h-5 opacity-0 transition-opacity duration-300 font-semibold">¡Alias copiado!</p>
+        </section>
+
+        <!-- Sección Cuenta Regresiva & RSVP -->
+        <section class="glass-card p-6 mb-12">
+            <h3 class="font-script text-4xl gold-text mb-6">Faltan</h3>
+            
+            <!-- Timer -->
+            <div class="flex justify-center gap-3 mb-8">
+                <div class="flex flex-col items-center">
+                    <div class="bg-[#1a0b2e]/90 border border-[#ffd700]/50 rounded-lg w-14 h-14 flex items-center justify-center text-xl font-bold gold-text" id="cd-days">00</div>
+                    <span class="text-[10px] mt-1 uppercase tracking-wider text-gray-300">Días</span>
+                </div>
+                <div class="text-2xl gold-text font-bold mt-2">:</div>
+                <div class="flex flex-col items-center">
+                    <div class="bg-[#1a0b2e]/90 border border-[#ffd700]/50 rounded-lg w-14 h-14 flex items-center justify-center text-xl font-bold gold-text" id="cd-hours">00</div>
+                    <span class="text-[10px] mt-1 uppercase tracking-wider text-gray-300">Hs</span>
+                </div>
+                <div class="text-2xl gold-text font-bold mt-2">:</div>
+                <div class="flex flex-col items-center">
+                    <div class="bg-[#1a0b2e]/90 border border-[#ffd700]/50 rounded-lg w-14 h-14 flex items-center justify-center text-xl font-bold gold-text" id="cd-mins">00</div>
+                    <span class="text-[10px] mt-1 uppercase tracking-wider text-gray-300">Min</span>
+                </div>
+                <div class="text-2xl gold-text font-bold mt-2">:</div>
+                <div class="flex flex-col items-center">
+                    <div class="bg-[#1a0b2e]/90 border border-[#ffd700]/50 rounded-lg w-14 h-14 flex items-center justify-center text-xl font-bold gold-text" id="cd-secs">00</div>
+                    <span class="text-[10px] mt-1 uppercase tracking-wider text-gray-300">Seg</span>
+                </div>
+            </div>
+
+            <p class="text-md mb-6 font-semibold">Confirma tu asistencia<br>y sé parte de este sueño.</p>
+            
+            <button onclick="openRSVP()" class="bg-gradient-to-r from-[#ffd700] to-[#e69500] text-[#2b124c] px-8 py-4 rounded-full font-bold text-sm md:text-base hover:shadow-[0_0_20px_rgba(255,215,0,0.6)] transform hover:-translate-y-1 transition-all w-full uppercase tracking-wide">
+                Confirmar asistencia
+            </button>
+            
+            <div class="mt-10">
+                <p class="font-script text-4xl mb-2">Te espero.</p>
+                <p class="font-script text-5xl gold-text">Valentina</p>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Modal Personalizado (Reemplazo de alert) -->
+    <div id="msg-box" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-black/70 backdrop-blur-sm px-4">
+        <div class="glass-card p-8 max-w-sm w-full text-center bg-[#2b124c] border-2 border-[#ffd700]">
+            <i class="fas fa-paper-plane text-4xl text-[#ffd700] mb-4"></i>
+            <h4 class="text-2xl font-bold gold-text mb-3">¡Qué emoción!</h4>
+            <p class="mb-6 text-gray-200 text-sm">Serás redirigido a WhatsApp para enviar tu confirmación a la familia.</p>
+            <div class="flex gap-4">
+                <button onclick="closeMsgBox()" class="flex-1 bg-transparent border border-gray-400 text-gray-300 px-4 py-2 rounded-full font-semibold hover:bg-gray-800 transition">Cancelar</button>
+                <button onclick="confirmRSVP()" class="flex-1 bg-[#ffd700] text-[#2b124c] px-4 py-2 rounded-full font-bold hover:bg-yellow-400 transition">Continuar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- Generador de Linternas Flotantes ---
+        const lanternsContainer = document.getElementById('lanterns-container');
+        const numberOfLanterns = 25; // Cantidad de luces de fondo
+
+        for(let i=0; i<numberOfLanterns; i++) {
+            let lantern = document.createElement('div');
+            lantern.className = 'lantern';
+            // Posición horizontal aleatoria
+            let left = Math.random() * 100;
+            // Duración aleatoria para que no suban todas juntas
+            let duration = 15 + Math.random() * 20; 
+            let delay = Math.random() * 20;
+            // Tamaño aleatorio
+            let scale = 0.4 + Math.random() * 0.7; 
+            
+            lantern.style.left = left + 'vw';
+            lantern.style.animationDuration = duration + 's';
+            lantern.style.animationDelay = delay + 's';
+            lantern.style.transform = `scale(${scale})`;
+            
+            lanternsContainer.appendChild(lantern);
+        }
+
+        // --- Lógica del Carrusel Marquee ---
+        // Tus fotos originales. Usamos placeholders en caso de que no carguen.
+        const originalImages = [
+            'foto1.jpeg',
+            'foto2.jpeg',
+            'foto3.jpeg',
+            'foto4.jpeg',
+            'foto5.jpeg',
+            'foto6.jpeg'
+        ];
+
+        const track = document.getElementById('marquee-track');
+        
+        // Creamos la función para inyectar imágenes
+        function addImagesToTrack() {
+            originalImages.forEach((src, index) => {
+                let img = document.createElement('img');
+                img.src = src;
+                img.alt = `Foto ${index + 1}`;
+                img.className = 'rounded-md';
+                // Fallback a gris/dorado si falla la imagen local
+                img.onerror = function() {
+                    this.src = `https://placehold.co/120x160/2b124c/ffd700?text=Foto+${index+1}`;
+                };
+                track.appendChild(img);
+            });
+        }
+
+        // Agregamos las imágenes 2 veces para que el loop infinito sea fluido
+        addImagesToTrack();
+        addImagesToTrack();
+
+        // --- Reproductor de Música ---
+        const audio = document.getElementById('bg-music');
+        const musicIcon = document.getElementById('music-icon');
+        const musicBtn = document.getElementById('music-btn');
+        let isPlaying = false;
+
+        function toggleMusic() {
+            if (isPlaying) {
+                audio.pause();
+                musicIcon.classList.remove('fa-pause');
+                musicIcon.classList.add('fa-play');
+                musicBtn.style.animation = 'pulse-btn 2s infinite';
+            } else {
+                audio.play().catch(e => console.log("Audio no pudo iniciar", e));
+                musicIcon.classList.remove('fa-play');
+                musicIcon.classList.add('fa-pause');
+                musicBtn.style.animation = 'none';
+            }
+            isPlaying = !isPlaying;
+        }
+
+        // --- Cuenta Regresiva ---
+        // Fecha objetivo: 12 de Diciembre de 2026, 21:00 hs
+        const countDownDate = new Date("Dec 12, 2026 21:00:00").getTime();
+
+        const timerInterval = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = countDownDate - now;
+
+            if (distance < 0) {
+                clearInterval(timerInterval);
+                document.getElementById("cd-days").innerHTML = "00";
+                document.getElementById("cd-hours").innerHTML = "00";
+                document.getElementById("cd-mins").innerHTML = "00";
+                document.getElementById("cd-secs").innerHTML = "00";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("cd-days").innerHTML = days < 10 ? '0' + days : days;
+            document.getElementById("cd-hours").innerHTML = hours < 10 ? '0' + hours : hours;
+            document.getElementById("cd-mins").innerHTML = minutes < 10 ? '0' + minutes : minutes;
+            document.getElementById("cd-secs").innerHTML = seconds < 10 ? '0' + seconds : seconds;
+        }, 1000);
+
+        // --- Copiar Alias al Portapapeles ---
+        function copyAlias() {
+            const alias = document.getElementById("alias-text").innerText;
+            const msg = document.getElementById("copy-msg");
+            
+            // Textarea temporal para copiar el texto
+            const textArea = document.createElement("textarea");
+            textArea.value = alias;
+            document.body.appendChild(textArea);
+            textArea.select();
+            
+            try {
+                document.execCommand('copy');
+                msg.style.opacity = 1;
+                setTimeout(() => { msg.style.opacity = 0; }, 2500);
+            } catch (err) {
+                console.error('Error al copiar', err);
+            }
+            
+            document.body.removeChild(textArea);
+        }
+
+        // --- Modal RSVP ---
+        function openRSVP() {
+            document.getElementById('msg-box').classList.remove('hidden');
+        }
+
+        function closeMsgBox() {
+            document.getElementById('msg-box').classList.add('hidden');
+        }
+        
+        function confirmRSVP() {
+            closeMsgBox();
+            // Lógica para enviar el mensaje por WhatsApp. 
+            // Reemplazar número.
+            window.open('https://wa.me/123456789?text=Hola!%20Confirmo%20mi%20asistencia%20a%20los%20XV%20de%20Valentina.', '_blank');
+        }
+
+    </script>
+</body>
+</html>
